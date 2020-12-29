@@ -1,0 +1,11 @@
+{
+  "files.associations": {
+    "*.cpp": "cpp",
+    "iostream": "cpp",
+    "bitset": "cpp",
+    "numeric": "cpp",
+    "*.tcc": "cpp",
+    "list": "cpp",
+    "tuple": "cpp"
+  }
+}
