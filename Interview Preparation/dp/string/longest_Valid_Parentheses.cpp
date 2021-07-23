@@ -15,7 +15,7 @@ void tool() {
 
 int LVP_using_stack(string s) {
     int maxLen = 0;
-    // we will push index value n stack
+    // we will push index value in stack
     stack<int> stk;
     // push -1 for the corner case i.e. '()'
     stk.push(-1);
@@ -55,6 +55,30 @@ int LVP_using_two_var(string s) {
             maxLen = max(maxLen, 2*oB);
         else if(oB > cB)
             cB = oB = 0;
+    }
+    return maxLen;
+}
+
+int LVP_using_four_var(string s) {
+    int oBL, cBL, oBR, cBR, maxLen = 0;
+    oBL = cBL = oBR = cBR = 0;
+    for(int i = 0; i < s.size(); i++) {
+        if(s[i] == '(')
+            oBL++;
+        else
+            cBL++;
+        if(s[s.size()-i-1] == '(')
+            oBR++;
+        else
+            cBR++;
+        if(cBL == oBL)
+            maxLen = max(maxLen, 2*oBL);
+        else if(cBL > oBL)
+            cBL = oBL = 0;
+        if(oBR == cBR)
+            maxLen = max(maxLen, 2*cBR);
+        else if(oBR > cBR)
+            cBR = oBR = 0;
     }
     return maxLen;
 }

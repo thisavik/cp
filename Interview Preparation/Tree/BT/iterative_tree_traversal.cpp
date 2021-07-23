@@ -17,7 +17,6 @@ vector<int> preOrder(TreeNode *);
 
 int32_t main()
 {
-    tool();
     TreeNode* root = new TreeNode(20); 
     root->left = new TreeNode(10);  
     root->left->left = new TreeNode(4); 
@@ -41,7 +40,7 @@ int32_t main()
     cout << "\n";
 }
 
-// left - right - push
+// left - right - root
 vector<int> postOrder(TreeNode *root)
 {
     stack<pair<TreeNode *, int>> s;

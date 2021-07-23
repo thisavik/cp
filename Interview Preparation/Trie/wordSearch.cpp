@@ -98,6 +98,5 @@ void TraverseGrid() {
 }
 
 int32_t main() {
-    tool();
     TraverseGrid();
 }

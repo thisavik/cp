@@ -31,7 +31,6 @@ bool isBalanced(TreeNode *root)
 
 int32_t main()
 {
-    tool();
     TreeNode *root = new TreeNode(1);
     root->left = new TreeNode(2);
     root->right = new TreeNode(2);

@@ -8,10 +8,6 @@ void tool()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
-#ifndef ONLINE_JUDGE
-    freopen("C://git//cp//input.txt", "r", stdin);
-    freopen("C://git//cp//output.txt", "w", stdout);
-#endif
 }
 
 struct Tree
@@ -67,6 +63,10 @@ void Tree::dfs(int s, int p)
 {
     par[s] = p;
     for(int i: adj[s])
+    {
         if(i != p)
+        {
             dfs(i, s);
+        }
+    }
 }

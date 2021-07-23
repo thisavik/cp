@@ -1,5 +1,6 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
+
+using namespace std;
 
 struct TrieNode
 {
@@ -70,7 +71,6 @@ void solve()
 
 int32_t main()
 {
-    tool();
     int t;
     cin >> t;
     while (t--)

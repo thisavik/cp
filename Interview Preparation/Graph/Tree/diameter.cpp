@@ -7,10 +7,6 @@ void tool()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
-#ifndef ONLINE_JUDGE
-    freopen("C://git//cp//input.txt", "r", stdin);
-    freopen("C://git//cp//output.txt", "w", stdout);
-#endif
 }
 
 const int maxN = 2*1e5+1;
@@ -23,7 +19,6 @@ int in[maxN], out[maxN];
 void dfs1(int s, int par)
 {
     in[s] = 0;
-    int mx = 0;
     for(int child : tree[s])
     {
         if(child != par)
@@ -34,8 +29,6 @@ void dfs1(int s, int par)
     }
 }
 
-// for calculating in[] array
-// out array represent height of tree when parent is in path
 void dfs2(int s, int par)
 {
     int mx1 = -1, mx2 = -1;

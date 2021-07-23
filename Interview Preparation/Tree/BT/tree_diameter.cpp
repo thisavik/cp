@@ -10,10 +10,6 @@ void tool()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
-#ifndef ONLINE_JUDGE
-    freopen("C://git//cp//input.txt", "r", stdin);
-    freopen("C://git//cp//output.txt", "w", stdout);
-#endif
 }
 
 struct TreeNode
@@ -43,8 +39,6 @@ int32_t main()
     cout << diameter(root) << "\n";
     cout << heightWithDiameter(root).second << "\n";
 }
-
-
 
 // this code took O(n^2) time to process but
 // we can optimize this using dynamic programming 
@@ -84,7 +78,7 @@ pair<int, int> heightWithDiameter(TreeNode* root)
     int height = 1 + max(lo.first, ro.first);
     int op1 = 1 + lo.first + ro.first;
     int op2 = lo.second;
-    int op3 = ro.first;
+    int op3 = ro.second;
     int diameter = max({op1, op2, op3});
     return {height, diameter};
 }

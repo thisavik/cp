@@ -1,10 +1,9 @@
 // we have given n node, with some node infected by certain diseases.
 // also we have certain number of edges (u -> v)
 // if any of node is infected then connection also infected
-// we have to find how many nod eis infected at last.
+// we have to find how many node is infected at last.
 
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 
 using namespace std;
 

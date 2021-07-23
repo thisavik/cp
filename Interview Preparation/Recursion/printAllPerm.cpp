@@ -36,6 +36,20 @@ void PermutationOfString(string& input, string& res, vector<int>& cnt, int level
     }
 }
 
+void helper(string& input, vector<string>& res, int idx) {
+    if(idx == input.size())
+    {
+        res.push_back(input);
+        return;
+    }
+    res.push_back(input);
+    for(int i = idx; i < input.size(); i++) {
+        swap(input[i], input[idx]);
+        helper(input, res, i+1);
+        swap(input[i], input[idx]);
+    }
+}
+
 int32_t main() {
     tool();
     string s;

@@ -2,65 +2,66 @@
 #include <vector>
 using namespace std;
 
-void tool() {
+void tool()
+{
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-    #ifndef ONLINE_JUDGE
-        freopen("C://git//cp//input.txt", "r", stdin);
-        freopen("C://git//cp//output.txt", "w", stdout);
-    #endif
 }
 
-struct node { 
-  int data; 
-  node *left; 
-  node *right; 
-  node(int key) {
-      data = key;
-      left = nullptr;
-      right = nullptr;
-  }
+struct node
+{
+	int data;
+	node *left;
+	node *right;
+	node(int key)
+	{
+		data = key;
+		left = nullptr;
+		right = nullptr;
+	}
 };
 
-void findPaths(node* root, vector<int>* curr, vector<vector<int>>& paths) {
+void findPaths(node *root, vector<int> *curr, vector<vector<int>> &paths)
+{
 
-    if(root == nullptr) return;
-    curr->push_back(root->data);
-    if(root->left == nullptr && root->right == nullptr) {
-        paths.push_back(*curr);
-        return;
-    }
+	if (root == nullptr)
+		return;
+	curr->push_back(root->data);
+	if (root->left == nullptr && root->right == nullptr)
+	{
+		paths.push_back(*curr);
+		return;
+	}
 
-    findPaths(root->left, new vector<int>(*curr), paths);
-    findPaths(root->right, new vector<int>(*curr), paths);
+	findPaths(root->left, new vector<int>(*curr), paths);
+	findPaths(root->right, new vector<int>(*curr), paths);
 }
 
-int32_t main() 
+int32_t main()
 {
-    tool();
-    node *root = new node(1);  
-    
-    
-    root->left = new node(2); 
-    root->right = new node(3);   
-    root->left->left = new node(4); 
-    root->left->right = new node(5);  
-    root->right->left = new node(6);
-    root->right->right = new node(8);
-    root->right->left->right = new node(7);
-    root->left->right->left = new node(9); 
+	tool();
+	node *root = new node(1);
 
-    vector<vector<int>> paths;
-    findPaths(root, new vector<int>(), paths);
+	root->left = new node(2);
+	root->right = new node(3);
+	root->left->left = new node(4);
+	root->left->right = new node(5);
+	root->right->left = new node(6);
+	root->right->right = new node(8);
+	root->right->left->right = new node(7);
+	root->left->right->left = new node(9);
 
-    for(auto& v: paths) {
-        for(auto& val: v)
-            cout << val << " ";
-        cout << "\n";
-    }
-    return 0; 
-} 
+	vector<vector<int>> paths;
+	findPaths(root, new vector<int>(), paths);
 
+	for (auto &v : paths)
+	{
+		for (auto &val : v)
+			cout << val << " ";
+		cout << "\n";
+	}
+	return 0;
+}
 
 /*
 #include <iostream>

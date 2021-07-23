@@ -18,7 +18,6 @@ void print(vector<vector<int>> grid) {
 }
 
 int32_t main() {
-    tool();
     int n, m;
     cin >> n >> m;
     vector<vector<int>> grid(n, vector<int>(m, 0));

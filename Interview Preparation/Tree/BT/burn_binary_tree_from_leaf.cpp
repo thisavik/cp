@@ -9,10 +9,6 @@ void tool()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
-#ifndef ONLINE_JUDGE
-    freopen("C://git//cp//input.txt", "r", stdin);
-    freopen("C://git//cp//output.txt", "w", stdout);
-#endif
 }
 
 struct TreeNode

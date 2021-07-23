@@ -6,10 +6,6 @@ using namespace std;
 void tool() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
-    #ifndef ONLINE_JUDGE
-        freopen("C://git//cp//input.txt", "r", stdin);
-        freopen("C://git//cp//output.txt", "w", stdout);
-    #endif
 }
 
 struct Node {
@@ -48,7 +44,7 @@ Node* createTree_2(int *pre, int size) {
     stk.push(root);
     for(int i = 1; i < size; i++) {
         Node* node = new Node(pre[i]);
-        Node *temp;
+        Node *temp = NULL;
         while(!stk.empty() && stk.top()->data < pre[i]) {
             temp = stk.top();
             stk.pop();

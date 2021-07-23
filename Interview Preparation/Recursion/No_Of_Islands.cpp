@@ -12,18 +12,21 @@ void printGrid(vector<vector<int>>& grid) {
     cout << "\n";
 }
 
-int dx[4] = {-1, 0, 1, 0};
-int dy[4] = {0, 1, 0, -1};
+vector<int> dx = {-1, 0, 1, 0};
+vector<int> dy = {0, 1, 0, -1};
+
+// vector<int> dx = {-1, -1, 0, 1, 1, 1, 0, -1};
+// vector<int> dy = {0, 1, 1, 1, 0, -1, -1, -1};
 
 bool isSafe(vector<vector<int>>& grid, int r, int c) {
-    return !(r < 0 || r >= grid.size() || c < 0 || c >= grid[0].size() || grid[r][c] == '0');
+    return !(r < 0 || r >= grid.size() || c < 0 || c >= grid[0].size() || grid[r][c] == 0);
 }
 
 void convert1to0(vector<vector<int>>& grid, int r, int c) {
     cout << r << " " << c << "\n";
-    grid[r][c] = '0';
+    grid[r][c] = 0;
 
-    for(int i = 0; i < 4; i++) {
+    for(int i = 0; i < dx.size(); i++) {
         int rNew = r + dx[i];
         int cNew = c + dy[i];
         if(isSafe(grid, rNew, cNew)) {
@@ -32,11 +35,11 @@ void convert1to0(vector<vector<int>>& grid, int r, int c) {
     }
 }
 
-int noOfIsland(vector<vector<char>>& grid) {
+int noOfIsland(vector<vector<int>>& grid) {
     int cnt = 0;
     for(int i = 0; i < grid.size(); i++) {
         for (int j = 0; j < grid[i].size(); j++) {
-            if(grid[i][j] == '1') {
+            if(grid[i][j] == 1) {
                 convert1to0(grid, i, j);
                 cnt++;
             }
@@ -57,7 +60,6 @@ void solve() {
 }
 
 int32_t main() {
-    tool();
     int t;
     cin >> t;
     while(t--) 

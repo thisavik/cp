@@ -7,10 +7,6 @@ void tool()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-#ifndef ONLINE_JUDGE
-    freopen("C://git//cp//input.txt", "r", stdin);
-    freopen("C://git//cp//output.txt", "w", stdout);
-#endif
 }
 
 pair<int, int> longestPalSubstr(string s);
@@ -48,6 +44,31 @@ pair<int, int> LPS(string s)
     return {start, maxLen};
 }
 
+string longestPalindromicSubstring(string s)
+{
+    int n = s.size(), start = 0, maxLen = 1;
+    int dp[n][n];
+    memset(dp, 0, sizeof dp);
+    for (int len = 1; len <= n; len++)
+    {
+        for (int i = 0; i+len-1 <= n-1; i++)
+        {
+            int j = i+len-1;
+            if (i == j)                                             // for len = 1
+                dp[i][j] = 1;
+            else if (i + 1 == j && s[i] == s[j])                // for len = 2
+                dp[i][j] = 1, start = i, maxLen = 2;
+            else if (s[i] == s[j] && dp[i + 1][j - 1] == 1)
+            {
+                dp[i][j] = 1;
+                if (maxLen < len)
+                    start = i, maxLen = len;
+            }
+        }
+    }
+    return s.substr(start, maxLen);
+}
+
 void solve()
 {
     string s;
@@ -72,23 +93,23 @@ pair<int, int> longestPalSubstr(string str)
 {
     int maxLen = 1, start = 0, len = str.size();
     int s, e;
-    for(int i = 1; i < len; i++)
+    for (int i = 1; i < len; i++)
     {
         // even length
-        s = i-1, e = i;
-        while(s >= 0 && e < len && str[s] == str[e])
+        s = i - 1, e = i;
+        while (s >= 0 && e < len && str[s] == str[e])
         {
-            if(maxLen < e-s+1)
-                start = s, maxLen = e-s+1;
+            if (maxLen < e - s + 1)
+                start = s, maxLen = e - s + 1;
             s--, e++;
         }
 
         // odd length
-        s = i-1, e = i+1;
-        while(s >= 0 && e < len && str[s] == str[e])
+        s = i - 1, e = i + 1;
+        while (s >= 0 && e < len && str[s] == str[e])
         {
-            if(maxLen < e-s+1)
-                start = s, maxLen = e-s+1;
+            if (maxLen < e - s + 1)
+                start = s, maxLen = e - s + 1;
             s--, e++;
         }
     }
