@@ -1,76 +1,7 @@
-#include <iostream
+#include <bits/stdc++.h>
 #include <unordered_map>
 
 using namespace std;
-/*
-class LRUCache
-{
-    struct Node
-    {
-        int k, v;
-        Node *l, *r;
-        Node(int key, int value) : k(key), v(value), l(NULL), r(NULL) {}
-    };
-    int cap;
-    Node *h, *t;
-    unordered_map<int, Node *> mp;
-
-public:
-    LRUCache(int capacity) : cap(capacity), h(new Node(-1, -1)), t(new Node(-1, -1)) {}
-    void set(int key, int value)
-    {
-        if(mp.find(key) != mp.end())
-        {
-            Node *n = mp[key];
-            n->v = value;
-            deleteNode(n);
-            addNode(n);
-        }
-        else
-        {
-            if(mp.size() == cap)
-            {
-                Node *n = t->l;
-                mp.erase(n->k);
-                deleteNode(n);
-                delete(n);
-            }
-            mp[key] = new Node(key, value);
-            addNode(mp[key]);
-        }
-        
-    }
-    int get(int key)
-    {
-        int res = -1;
-        if (mp.find(key) != mp.end())
-        {
-            Node *n = mp[key];
-            res = n->v;
-            deleteNode(n);
-            addNode(n);
-        }
-        return res;
-    }
-    void addNode(Node *n)
-    {
-        n->r = h->r;
-        n->r->l = n;
-        h->r = n;
-        n->l = h;
-    }
-    void deleteNode(Node *n)
-    {
-        n->l->r = n->r;
-        n->r->l = n->l;
-    }
-};
-*/
-
-int32_t main()
-{
-}
-
 
 class LRUCache
 {
@@ -115,7 +46,6 @@ public:
         }
         return res;
     }
-
     void put(int key, int value)
     {
         if (mp.find(key) != mp.end())
@@ -137,5 +67,44 @@ public:
             mp[key] = new Node(key, value);
             addNode(mp[key]);
         }
+    }
+};
+
+class LRUCache
+{
+    list<pair<int, int>> l;
+    unordered_map<int, list<pair<int, int>>::iterator> mp;
+    int capacity;
+public:
+    LRUCache(int capacity) : capacity(capacity) {}
+    int get(int key)
+    {
+        int res = -1;
+        if(mp.find(key) != mp.end())
+        {
+            auto node = mp[key];
+            l.erase(mp[key]);
+            l.push_front({node->first, node->second});
+            res = node->second;
+        }
+        return res;
+    }
+    int put(int key, int value)
+    {
+        bool flag = false;
+        if(mp.find(key) != mp.end())
+        {
+            l.erase(mp[key]);
+            flag = true;
+        }
+        else if(mp.size() == capacity)
+        {
+            cout << l.back().first << "\n";
+            mp.erase(l.back().first);
+            l.pop_back();
+        }
+        l.push_front({key, value});
+        mp[key] = l.begin();
+        return flag;
     }
 };

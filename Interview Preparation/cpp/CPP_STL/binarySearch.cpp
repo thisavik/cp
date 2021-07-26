@@ -6,6 +6,7 @@ using namespace std;
 
 // lower_bound
 // return position of 1st element greater than equal to val
+// [s, e)
 int Lower_bound(vector<int> a, int s, int e, int val)
 {
     int ans = e;
@@ -22,6 +23,7 @@ int Lower_bound(vector<int> a, int s, int e, int val)
 
 // upper_bound
 // return position of 1st element greater than val
+// [s, e)
 int Upper_bound(vector<int> a, int s, int e, int val)
 {
     int ans = e;
