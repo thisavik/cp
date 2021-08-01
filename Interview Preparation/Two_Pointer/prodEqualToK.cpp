@@ -59,6 +59,7 @@ int cntSubary(vector<int>& v, int& k) {
 	}
 	return res;
 }
+
 void solve() {
 	int n, k;
 	cin >> n >> k;
@@ -67,6 +68,7 @@ void solve() {
 		cin >> v[i];
 	cout << cntSubary(v, k) << "\n";
 }
+
 int32_t main() {
 	tool();
 	int t;
