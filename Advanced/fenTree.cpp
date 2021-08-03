@@ -13,9 +13,7 @@ void tool() {
 }
 
 struct fenwickTree {
-
 	vector<int> BIT;
-
 	// constructor for intialiser
 	fenwickTree(vector<int>& v){
 		BIT.resize(v.size()+1, 0);
@@ -23,17 +21,14 @@ struct fenwickTree {
 			update(v[i-1], i);
 		}
 	}
-
 	// used when any range query fired
 	int getParent(int idx){
 		return idx - (idx & (-idx));
 	}
-
 	// used while updation of BIT 
 	int getNext(int idx){
 		return idx + (idx & (-idx));
 	}
-
 	// prefix sum range query
 	int getSum(int idx){
 		int sum = 0;
@@ -44,7 +39,6 @@ struct fenwickTree {
 		}
 		return sum;
 	}
-
 	// update BIT when original array is updated
 	void update(int val, int idx){
 		while(idx < BIT.size()){
