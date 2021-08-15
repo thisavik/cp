@@ -6,6 +6,17 @@ using namespace std;
 #define rep(i, n) for(int i = 0; i < n; i++)
 #define range(i, a, b) for(int i = a; i <= b; i++)
 
+void tool()
+{
+  ios_base::sync_with_stdio(false);
+  cin.tie(NULL);
+#ifndef ONLINE_JUDGE
+  freopen("C:/Users/thisa/OneDrive/Documents/cp/input.txt", "r", stdin);
+  freopen("C:/Users/thisa/OneDrive/Documents/cp/output.txt", "w", stdout);
+  freopen("C:/Users/thisa/OneDrive/Documents/cp/error.txt", "w", stderr);
+#endif
+}
+
 struct T
 {
     int u, wt;
@@ -47,6 +58,7 @@ void dijkstra()
 
 int32_t main()
 {
+    tool();
     int n, e, u, v, wt;
     cin >> n >> e;
     rep(i, e)
