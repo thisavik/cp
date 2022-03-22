@@ -94,7 +94,7 @@ int32_t main() {
     // }
 
 
- M-2 using gap method
+//  M-2 using gap method
     int len = n+m;
     int gap = (len+1)/2;
     while(gap > 0) 
@@ -105,7 +105,6 @@ int32_t main() {
         {
             int &x = (i < n) ? a[i] : b[i-n];
             int &y = (j < n) ? a[j] : b[j-n];
-            cout << x << " " << y << "\n";
             if(x > y)
                 swap(x, y);
             i++, j++;

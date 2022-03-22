@@ -1,14 +1,6 @@
-/*
- *  author: thisavik
- *  created: 20:42:20 19-08-2021 Thu
-**/
 #include <bits/stdc++.h>
-using namespace std;
 
-#define int long long
-#define rep(i, a, b) for (int i = a; i < b; i++)
-#define per(i, a, b) for (int i = a; i >= b; i--)
-#define all(x) (x).begin(), (x).end()
+using namespace std;
 
 void tool()
 {
@@ -20,6 +12,7 @@ void tool()
     freopen("C:/Users/thisa/OneDrive/Documents/cp/error.txt", "w", stderr);
 #endif
 }
+
 namespace
 {
     template <typename A, typename B>
@@ -84,11 +77,11 @@ namespace
         out << "}";
         return out;
     }
-#ifndef LOCAL
-#define trace(...) __f(#__VA_ARGS__, __VA_ARGS__)
-#else
-#define trace(...) 42
-#endif
+    #ifndef LOCAL
+    #define trace(...) __f(#__VA_ARGS__, __VA_ARGS__)
+    #else
+    #define trace(...) 42
+    #endif
     template <typename Arg1>
     void __f(const char *name, Arg1 &&arg1)
     {
@@ -100,65 +93,58 @@ namespace
         const char *comma = strchr(names + 1, ',');
         cerr.write(names, comma - names) << ": " << arg1 << " |";
         __f(comma + 1, args...);
-    }
+    }  
 }
 
-map<string, vector<string>> userWithFavGenres(map<string, vector<string>> &userSongs, map<string, vector<string>> &songGenres)
+struct Job
 {
-    map<string, string> mp;
-    for (auto &songGenre : songGenres)
-    {
-        for (auto &song : songGenre.second)
-            mp[song] = songGenre.first;
-    }
-    map<string, vector<string>> ans;
-    map<string, int> cnt;
-    for (auto &userSong : userSongs)
-    {
-        int mx = 0;
-        for (auto &song : userSong.second)
-        {
-            cnt[mp[song]]++;
-            if (mx < cnt[mp[song]])
-                mx = cnt[mp[song]];
-        }
-        for (auto &p : cnt)
-            if (p.second == mx)
-                ans[userSong.first].push_back(p.first);
-        cnt.clear();
-    }
-    return ans;
-}
+    int start, end, profit;
+};
 
 void solve()
 {
-    int n, m;
+    int n;
     cin >> n;
-    string str, s;
-    map<string, vector<string>> userSongs, songGenres;
+    vector<Job> interval;
     for (int i = 0; i < n; i++)
     {
-        cin >> m >> str;
-        for (int j = 0; j < m; j++)
-            cin >> s, userSongs[str].push_back(s);
+        int start, end, profit;
+        cin >> start >> end >> profit;
+        interval.push_back({start, end, profit});
     }
-    cin >> n;
+    sort(interval.begin(), interval.end(), [](Job &a, Job &b)
+         { return a.end < b.end; });
+    vector<int> dp(n);
     for (int i = 0; i < n; i++)
     {
-        cin >> m >> str;
-        for (int j = 0; j < m; j++)
-            cin >> s, songGenres[str].push_back(s);
+        if (i == 0)
+        {
+            dp[0] = interval[i].profit;
+            continue;
+        }
+        int lastProfit = 0;
+        int l = 0, h = i;
+        while(l <= h)
+        {
+            int mid = l + (h - l)/2;
+            if(interval[mid].end <= interval[i].start)
+                lastProfit = dp[mid], l = mid + 1;
+            else
+                h = mid - 1;
+        }
+        dp[i] = max(dp[i - 1], lastProfit + interval[i].profit);
     }
-    map<string, vector<string>> ans = userWithFavGenres(userSongs, songGenres);
-    trace(ans);
+    cout << dp << "\n";
+    trace(dp);
+    cout << dp[n - 1];
 }
 
-int32_t main(int32_t argc, char *args[])
+int main()
 {
     tool();
-    int t = 1;
-    // cin >> t;
-    while (t--)
+    int t;
+    cin >> t;
+    while(t--)
         solve();
     return 0;
 }

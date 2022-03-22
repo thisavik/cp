@@ -1,14 +1,5 @@
-/*
- *  author: thisavik
- *  created: 20:42:20 19-08-2021 Thu
-**/
 #include <bits/stdc++.h>
 using namespace std;
-
-#define int long long
-#define rep(i, a, b) for (int i = a; i < b; i++)
-#define per(i, a, b) for (int i = a; i >= b; i--)
-#define all(x) (x).begin(), (x).end()
 
 void tool()
 {
@@ -102,62 +93,45 @@ namespace
         __f(comma + 1, args...);
     }
 }
-
-map<string, vector<string>> userWithFavGenres(map<string, vector<string>> &userSongs, map<string, vector<string>> &songGenres)
-{
-    map<string, string> mp;
-    for (auto &songGenre : songGenres)
-    {
-        for (auto &song : songGenre.second)
-            mp[song] = songGenre.first;
-    }
-    map<string, vector<string>> ans;
-    map<string, int> cnt;
-    for (auto &userSong : userSongs)
-    {
-        int mx = 0;
-        for (auto &song : userSong.second)
-        {
-            cnt[mp[song]]++;
-            if (mx < cnt[mp[song]])
-                mx = cnt[mp[song]];
-        }
-        for (auto &p : cnt)
-            if (p.second == mx)
-                ans[userSong.first].push_back(p.first);
-        cnt.clear();
-    }
-    return ans;
-}
-
 void solve()
 {
-    int n, m;
-    cin >> n;
-    string str, s;
-    map<string, vector<string>> userSongs, songGenres;
-    for (int i = 0; i < n; i++)
+    string s;
+    cin >> s;
+    string temp = "#";
+    for (int i = 0; i < s.size(); i++)
     {
-        cin >> m >> str;
-        for (int j = 0; j < m; j++)
-            cin >> s, userSongs[str].push_back(s);
+        temp.push_back(s[i]);
+        temp.push_back('#');
     }
-    cin >> n;
-    for (int i = 0; i < n; i++)
+    vector<int> p(2 * s.size() + 1, 0);
+    int center = 0, right = 0, tSz = temp.size(), idx = 0, len = 1;
+    for (int i = 0; i < tSz; i++)
     {
-        cin >> m >> str;
-        for (int j = 0; j < m; j++)
-            cin >> s, songGenres[str].push_back(s);
+        int mirror = center - (center - i);
+        if (right > i)
+            p[i] = min(p[mirror], right - i);
+        int l = i - (p[i] + 1);
+        int r = i + (p[i] + 1);
+        trace(mirror, center, i);
+        while (l >= 0 && r < tSz && temp[l] == temp[r])
+            --l, ++r, ++p[i];
+        if (2 * p[i] + 1 > len)
+            idx = i - p[i], len = 2 * p[i] + 1;
+        if (i + p[i] > right)
+            center = i, right = i + p[i];
     }
-    map<string, vector<string>> ans = userWithFavGenres(userSongs, songGenres);
-    trace(ans);
+    string ans;
+    for (auto &ch : temp.substr(idx, len))
+        if (ch != '#')
+            ans.push_back(ch);
+    cout << ans;
 }
 
-int32_t main(int32_t argc, char *args[])
+int main()
 {
     tool();
-    int t = 1;
-    // cin >> t;
+    int t;
+    cin >> t;
     while (t--)
         solve();
     return 0;

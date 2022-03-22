@@ -99,7 +99,6 @@ public:
         }
         else if(mp.size() == capacity)
         {
-            cout << l.back().first << "\n";
             mp.erase(l.back().first);
             l.pop_back();
         }

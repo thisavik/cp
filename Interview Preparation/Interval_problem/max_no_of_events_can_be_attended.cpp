@@ -1,6 +1,6 @@
 /*
  *  author: thisavik
- *  created: 20:42:20 19-08-2021 Thu
+ *  created: 19:17:46 18-08-2021 Wed
 **/
 #include <bits/stdc++.h>
 using namespace std;
@@ -102,62 +102,45 @@ namespace
         __f(comma + 1, args...);
     }
 }
-
-map<string, vector<string>> userWithFavGenres(map<string, vector<string>> &userSongs, map<string, vector<string>> &songGenres)
+int maxEvents(vector<vector<int>> &A)
 {
-    map<string, string> mp;
-    for (auto &songGenre : songGenres)
+    int n = A.size();
+    sort(A.begin(), A.end());
+    priority_queue<int, vector<int>, greater<int>> pq;
+    int i = 0, d = 0, res = 0;
+    while(!pq.empty() || i < n)
     {
-        for (auto &song : songGenre.second)
-            mp[song] = songGenre.first;
+        if(pq.size() == 0)
+            d = A[i][0];
+        while(i < n && A[i][0] <= d)
+            pq.push(A[i++][1]);
+        ++res, ++d;
+        pq.pop();
+        while(!pq.empty() && pq.top() < d)
+            pq.pop();
     }
-    map<string, vector<string>> ans;
-    map<string, int> cnt;
-    for (auto &userSong : userSongs)
-    {
-        int mx = 0;
-        for (auto &song : userSong.second)
-        {
-            cnt[mp[song]]++;
-            if (mx < cnt[mp[song]])
-                mx = cnt[mp[song]];
-        }
-        for (auto &p : cnt)
-            if (p.second == mx)
-                ans[userSong.first].push_back(p.first);
-        cnt.clear();
-    }
-    return ans;
+    return res;
 }
 
 void solve()
 {
-    int n, m;
+    int n;
     cin >> n;
-    string str, s;
-    map<string, vector<string>> userSongs, songGenres;
+    vector<vector<int>> events;
     for (int i = 0; i < n; i++)
     {
-        cin >> m >> str;
-        for (int j = 0; j < m; j++)
-            cin >> s, userSongs[str].push_back(s);
+        int s, e;
+        cin >> s >> e;
+        events.push_back({s, e});
     }
-    cin >> n;
-    for (int i = 0; i < n; i++)
-    {
-        cin >> m >> str;
-        for (int j = 0; j < m; j++)
-            cin >> s, songGenres[str].push_back(s);
-    }
-    map<string, vector<string>> ans = userWithFavGenres(userSongs, songGenres);
-    trace(ans);
+    cout << maxEvents(events) << "\n";
 }
 
 int32_t main(int32_t argc, char *args[])
 {
     tool();
-    int t = 1;
-    // cin >> t;
+    int t;
+    cin >> t;
     while (t--)
         solve();
     return 0;

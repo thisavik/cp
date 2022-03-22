@@ -89,7 +89,6 @@ bool unDirectedGraph::isCycleBFS()
 
 int32_t main()
 {
-    tool();
     int v, e;
     cin >> v >> e;
 
